@@ -1,0 +1,86 @@
+﻿@model IEnumerable<LenaProje.Models.Form>
+
+@{
+    if (Session["username"]==null)
+    {
+        Response.Redirect("~/Home/Login");
+    }
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#FormCreate">
+    Form Create
+</button>
+<br />
+<br />
+<div class="modal fade" id="FormCreate" tabindex="-1" role="dialog" aria-labelledby="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="modal-title" id="myModalLabel">Form Create</h4>
+            </div>
+            <form method="post" action="/Home/IndexCreate">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <input type="text" name="description" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>CreatedAt(YY-MM-DD)</label>
+                        <input type="datetime" name="createdAt" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>CreatedBy</label>
+                        <input type="text" name="createdBy" class="form-control" />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Kapat</button>
+                    <button id="btnSend" type="submit" class="btn btn-primary">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+    </tr>
+}
+    <tr id="FormList"></tr>
+
+</table>
